@@ -1,0 +1,17 @@
+image: gitpod/workspace-full
+
+tasks:
+  - init: |
+      sudo apt update
+      sudo apt install -y php-cli php-mbstring php-xml php-intl php-sqlite3 unzip curl
+      curl -sS https://getcomposer.org/installer | php
+      sudo mv composer.phar /usr/local/bin/composer
+      curl -sS https://get.symfony.com/cli/installer | bash
+      mv ~/.symfony*/bin/symfony /usr/local/bin/symfony
+      symfony new my_project --webapp
+  - command: |
+      cd my_project
+      symfony serve --no-tls --port=8000
+ports:
+  - port: 8000
+    onOpen: open-preview
